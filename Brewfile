@@ -51,7 +51,7 @@ brew 'memcached'
 #brew 'redis'
 #brew 'yarn'
 
-brew 'emacs-plus@27 --with-mailutils'
+brew 'emacs-plus@27'# --with-mailutils'
 brew 'terraform'
 
 # Apps
