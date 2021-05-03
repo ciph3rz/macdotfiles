@@ -1,0 +1,26 @@
+https://apple.stackexchange.com/questions/4813/changing-modifier-keys-from-the-command-line
+{
+    PKSecureElementAvailableFlagsByHostSome = 1;
+    "com.apple.keyboard.modifiermapping.1452-629-0" =     (
+                {
+            HIDKeyboardModifierMappingDst = 30064771113;
+            HIDKeyboardModifierMappingSrc = 30064771129;
+        }
+    );
+    "com.apple.trackpad.enableSecondaryClick" = 1;
+    "com.apple.trackpad.fiveFingerPinchSwipeGesture" = 2;
+    "com.apple.trackpad.fourFingerHorizSwipeGesture" = 2;
+    "com.apple.trackpad.fourFingerPinchSwipeGesture" = 2;
+    "com.apple.trackpad.fourFingerVertSwipeGesture" = 2;
+    "com.apple.trackpad.momentumScroll" = 1;
+    "com.apple.trackpad.pinchGesture" = 1;
+    "com.apple.trackpad.rotateGesture" = 1;
+    "com.apple.trackpad.scrollBehavior" = 2;
+    "com.apple.trackpad.threeFingerDragGesture" = 0;
+    "com.apple.trackpad.threeFingerHorizSwipeGesture" = 2;
+    "com.apple.trackpad.threeFingerTapGesture" = 0;
+    "com.apple.trackpad.threeFingerVertSwipeGesture" = 2;
+    "com.apple.trackpad.twoFingerDoubleTapGesture" = 1;
+    "com.apple.trackpad.twoFingerFromRightEdgeSwipeGesture" = 3;
+    "com.apple.trackpad.version" = 5;
+}
