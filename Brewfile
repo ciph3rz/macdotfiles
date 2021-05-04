@@ -100,6 +100,7 @@ cask 'quicklook-json'
 cask 'brave-browser'
 cask 'iterm2'
 cask 'virtualbox'
+cask 'evernote'
 
 # Fonts
 cask 'font-lato'
