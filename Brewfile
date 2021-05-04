@@ -53,6 +53,17 @@ brew 'memcached'
 
 brew 'emacs-plus@27'# --with-mailutils'
 brew 'terraform'
+brew 'ansible'
+brew 'binwalk'
+brew 'ripgrep'
+brew 'fd'
+brew 'docker'
+brew 'docker-compose'
+brew 'magic-wormhole'
+brew 'mailutils'
+brew 'nmap'
+brew 'sqlite'
+#brew 'unrar'
 
 # Apps
 cask 'lastpass'
@@ -61,6 +72,7 @@ cask 'caffeine'
 cask 'dbngin'
 cask 'discord'
 cask 'docker'
+
 cask 'firefox'
 cask 'github'
 cask 'google-backup-and-sync'
@@ -107,6 +119,8 @@ mas 'Numbers', id: 409203825
 mas 'Speedtest', id: 1153157709
 #mas 'Things', id: 904280696
 #mas 'Tweetbot', id: 1384080005
-#mas 'Surfshark', id:
-#mas 'drafts'
-#mas 'Magnet' 
+#mas 'Surfshark', id: 1437809329
+mas 'Drafts', id: 1435957248
+mas 'Magnet', id: 441258766 
+mas 'Disk Cleaner', id: 970246631
+
