@@ -101,6 +101,7 @@ cask 'brave-browser'
 cask 'iterm2'
 cask 'virtualbox'
 cask 'evernote'
+cask 'vagrant'
 
 # Fonts
 cask 'font-lato'

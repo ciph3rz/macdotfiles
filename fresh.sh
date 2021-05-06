@@ -46,6 +46,11 @@ brew bundle
 rm -rf $HOME/.zshrc
 ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
 
+# Removes doom emacs config from $HOME (if it exists) and symlinks the .doom.d files from the .dotfiles
+rm -rf $HOME/.doom.d
+ln -s $HOME/.dotfiles/.doom.d $HOME/.doom.d
+
+
 # Symlink the Mackup config file to the home directory
 ln -s $HOME/.dotfiles/.mackup.cfg $HOME/.mackup.cfg
 
