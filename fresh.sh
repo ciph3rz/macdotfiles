@@ -45,6 +45,8 @@ brew bundle
 # Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
 rm -rf $HOME/.zshrc
 ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
+ln -s $HOME/.dotfiles/.p10k.zsh $HOME/.p10k.zsh
+
 
 # Removes doom emacs config from $HOME (if it exists) and symlinks the .doom.d files from the .dotfiles
 rm -rf $HOME/.doom.d
