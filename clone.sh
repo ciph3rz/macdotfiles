@@ -17,6 +17,10 @@ ZPATH=$HOME/.oh-my-zsh/custom
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZPATH/themes/powerlevel10k
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $ZPATH/plugins/zsh-autosuggestions
 git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZPATH/plugins/zsh-syntax-highlighting
+# Cloning Powerline fonts and installing
+git clone https://github.com/powerline/fonts.git --depth=1 ~/code/fonts
+cd fonts
+./install.sh
 
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 echo "Installing Doom Emacs"

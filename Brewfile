@@ -29,12 +29,12 @@ brew 'ripgrep'
 brew 'findutils'
 brew 'fd'
 
-# Spatie Medialibrary
-brew 'jpegoptim'
-brew 'optipng'
-brew 'pngquant'
-brew 'svgo'
-brew 'gifsicle'
+# # Spatie Medialibrary
+# brew 'jpegoptim'
+# brew 'optipng'
+# brew 'pngquant'
+# brew 'svgo'
+# brew 'gifsicle'
 
 # Development
 #brew 'php'
@@ -66,18 +66,18 @@ brew 'sqlite'
 #brew 'unrar'
 
 # Apps
-cask 'lastpass'
+# cask 'lastpass'
 cask 'aerial'
 cask 'caffeine'
-cask 'dbngin'
-cask 'discord'
+# cask 'dbngin'
+# cask 'discord'
 cask 'docker'
 
 cask 'firefox'
-cask 'github'
+# cask 'github'
 cask 'google-backup-and-sync'
 cask 'google-chrome'
-cask 'gpg-suite'
+# cask 'gpg-suite'
 cask 'imageoptim'
 #cask 'signal'
 #cask 'skype'
@@ -102,6 +102,7 @@ cask 'iterm2'
 cask 'virtualbox'
 cask 'evernote'
 cask 'vagrant'
+cask 'quicken'
 
 # Fonts
 cask 'font-lato'
@@ -111,7 +112,13 @@ cask 'font-source-code-pro-for-powerline'
 cask 'font-source-code-pro'
 cask 'font-source-sans-pro'
 cask 'font-source-serif-pro'
-
+cask 'font-ubuntu-nerd-font'
+#cask 'font-ubuntumono-nerd-font'
+# cask 'font-spacemono-nerd-font'
+cask 'font-sourcecodepro-nerd-font'
+cask 'font-sourcecodepro-nerd-font-mono'
+cask 'font-hack-nerd-font'
+cask 'font-hack-nerd-font-mono'
 # Mac App Store
 #mas 'Byword', id: 420212497
 #mas 'Giphy Capture', id: 668208984
