@@ -1,0 +1,31 @@
+* Todo's 
+
+** Dotfiles
+- doom.d mac version
+- .zshrc with themes
+- updated 
+
+** MAS
+- get all the IDs for the apps I need
+- magnet
+- surfshark
+- disk cleaner
+- numbers
+
+
+** clone.sh
+zsh themes
+- emacs
+- private repos
+
+** determine ssh gitclone vs std https pull
+** create new ssh?
+
+** Issues 2nd run
+- apple apps not installed
+- do we need to run the .macos file
+- carve out the apple apps into a second run? does it require auth prior to working? Is this known?
+- .zshrc themes not applying?
+- remove icons in the dock for pages, number, keynote
+- remove lastpass from brew
+- install synology drive
