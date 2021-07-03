@@ -5,10 +5,12 @@ tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
 tap 'nicoverbruggen/homebrew-cask'
 tap 'd12frosted/emacs-plus'
+tap 'hashicorp/tap'
 
 # Binaries
 brew 'awscli'
 brew 'bash' # Latest Bash version
+brew 'cmake' # needed for vterm compilation
 brew 'coreutils' # Those that come with macOS are outdated
 brew 'ffmpeg'
 brew 'gh'
@@ -28,6 +30,7 @@ brew 'zlib' # Needed for Memcached
 brew 'ripgrep'
 brew 'findutils'
 brew 'fd'
+brew 'youtube-dl'
 
 # # Spatie Medialibrary
 # brew 'jpegoptim'
@@ -51,7 +54,8 @@ brew 'memcached'
 #brew 'redis'
 #brew 'yarn'
 
-brew 'emacs-plus@27'# --with-mailutils'
+#brew 'emacs-plus@27'# --with-mailutils' # not working with apple silicon
+brew  'emacs-plus --HEAD --with-modern-black-dragon-icon --with-mailutils'
 brew 'terraform'
 brew 'ansible'
 brew 'binwalk'
@@ -64,6 +68,7 @@ brew 'mailutils'
 brew 'nmap'
 brew 'sqlite'
 #brew 'unrar'
+brew 'hashicorp/tap/packer'
 
 # Apps
 # cask 'lastpass'
@@ -83,7 +88,7 @@ cask 'imageoptim'
 #cask 'skype'
 #cask 'slack'
 #cask 'steam'
-cask 'sublime-text'
+#cask 'sublime-text'
 #cask 'tableplus'
 #cask 'telegram-desktop'
 cask 'the-unarchiver'
@@ -99,7 +104,7 @@ cask 'vlc'
 cask 'quicklook-json'
 cask 'brave-browser'
 cask 'iterm2'
-cask 'virtualbox'
+#cask 'virtualbox'
 cask 'evernote'
 cask 'vagrant'
 cask 'quicken'
@@ -115,10 +120,13 @@ cask 'font-source-serif-pro'
 cask 'font-ubuntu-nerd-font'
 #cask 'font-ubuntumono-nerd-font'
 # cask 'font-spacemono-nerd-font'
-cask 'font-sourcecodepro-nerd-font'
-cask 'font-sourcecodepro-nerd-font-mono'
-cask 'font-hack-nerd-font'
-cask 'font-hack-nerd-font-mono'
+#cask 'font-sourcecodepro-nerd-font'
+#cask 'font-sourcecodepro-nerd-font-mono'
+#cask 'font-hack-nerd-font'
+#cask 'font-hack-nerd-font-mono'
+cask 'font-iosevka-ss04'
+cask 'font-iosevka-nerd-font'
+
 # Mac App Store
 #mas 'Byword', id: 420212497
 #mas 'Giphy Capture', id: 668208984
@@ -132,4 +140,4 @@ mas 'Speedtest', id: 1153157709
 mas 'Drafts', id: 1435957248
 mas 'Magnet', id: 441258766 
 mas 'Disk Cleaner', id: 970246631
-
+mas 'Surfshark VPN', id: 1437809329
