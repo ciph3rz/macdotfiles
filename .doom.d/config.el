@@ -21,10 +21,10 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 14))
 ;; (setq doom-font (font-spec :family "Iosevka" :size 14)
-(setq doom-font (font-spec :family "Source Code Pro" :size 18)
-      ;;doom-variable-pitch-font (font-spec :family "Libre Baskerville")
+(setq doom-font (font-spec :family "Iosevka SS04" :size 18 :weight 'Light)
+      doom-variable-pitch-font (font-spec :family "Baskerville" :size 18 :weight 'Regular))
       ;;doom-variable-pitch-font (font-spec :family "ETBembo" :size 18)
-      doom-serif-font (font-spec :family "Iosevka"))
+;;      doom-serif-font (font-spec :family "Iosevka"))
 
   (custom-theme-set-faces
    'user
@@ -273,3 +273,7 @@ text and copying to the killring."
 ;; Babel configuration NEW
 (setq org-babel-load-languages (quote ((emacs-lisp . t) (shell . t))))
 )
+
+;; Custom MacOS M1 config for vterm compilation
+'(exec-path
+    '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin"  "/opt/homebrew/bin" "/opt/homebrew/sbin" ))
