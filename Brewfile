@@ -67,6 +67,8 @@ brew 'magic-wormhole'
 brew 'mailutils'
 brew 'nmap'
 brew 'sqlite'
+brew 'lolcat'
+brew 'neofetch'
 #brew 'unrar'
 brew 'hashicorp/tap/packer'
 
