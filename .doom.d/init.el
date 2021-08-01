@@ -143,6 +143,7 @@
        +dragndrop       ; drag & drop files/images into org buffers
        +org-bullets
        +noter
+       +roam
        +hugo              ; use Emacs for hugo blogging
        +present)           ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend

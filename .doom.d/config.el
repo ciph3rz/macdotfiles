@@ -7,7 +7,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "edworks"
-      user-mail-address "edworks@gmx.net")
+      user-mail-address "edworks@tribal-odyssey.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -61,6 +61,9 @@
 (after! org
 
 (setq org-files-directory "~/org/")
+
+;; Roam Settings
+(setq org-roam-directory "~/org/RoamNotes")
 
 (setq org-log-into-drawer t )
 
@@ -271,7 +274,7 @@ text and copying to the killring."
 
 ;;(setq byte-compile-warnings '(cl-functions))
 ;; Babel configuration NEW
-(setq org-babel-load-languages (quote ((emacs-lisp . t) (shell . t))))
+(setq org-babel-load-languages (quote ((emacs-lisp . t) (bash .t) (sh . t))))
 )
 
 ;; Custom MacOS M1 config for vterm compilation
