@@ -86,6 +86,7 @@ cask 'caffeine'
 # cask 'dbngin'
 # cask 'discord'
 cask 'docker'
+cask 'knockknock'
 
 cask 'firefox'
 # cask 'github'
