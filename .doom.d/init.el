@@ -32,7 +32,7 @@
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       ;;indent-guides     ; highlighted indent columns
+       indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        ;;neotree           ; a project drawer, like NERDTree for vim
@@ -89,7 +89,7 @@
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
-       ;;gist              ; interacting with github gists
+       gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
        ;;lsp
        macos             ; MacOS-specific commands
@@ -143,7 +143,7 @@
        +dragndrop       ; drag & drop files/images into org buffers
        +org-bullets
        +noter
-       +roam
+       +roam2
        +hugo              ; use Emacs for hugo blogging
        +present)           ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend

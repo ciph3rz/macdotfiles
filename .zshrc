@@ -109,3 +109,4 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 neofetch | lolcat
+export PATH=$PATH:~/.emacs.d/bin

@@ -62,9 +62,82 @@
 
 (setq org-files-directory "~/org/")
 
-;; Roam Settings
-(setq org-roam-directory "~/org/RoamNotes")
+;; ORG-ROAM Settings
 
+(use-package! org-roam
+  :init
+  (setq org-roam-v2-ack t)
+  (map! :leader
+        :prefix "n"
+        :desc "org-roam" "l" #'org-roam-buffer-toggle
+        :desc "org-roam-node-insert" "i" #'org-roam-node-insert
+        :desc "org-roam-node-find" "f" #'org-roam-node-find
+        :desc "org-roam-ref-find" "r" #'org-roam-ref-find
+        :desc "org-roam-show-graph" "g" #'org-roam-show-graph
+        :desc "org-roam-capture" "c" #'org-roam-capture)
+  (setq org-roam-directory (file-truename "~/org/RoamNotes")
+        org-roam-db-location (file-truename "~/code/Roam/org-roam.db")
+        org-roam-db-gc-threshold most-positive-fixnum
+        org-roam-completion-everywhere t
+        org-id-link-to-org-use-id t)
+  :config
+  (org-roam-setup)
+  (set-popup-rules!
+    `((,(regexp-quote org-roam-buffer) ; persistent org-roam buffer
+       :side right :width .33 :height .5 :ttl nil :modeline nil :quit nil :slot 1)
+      ("^\\*org-roam: " ; node dedicated org-roam buffer
+       :side right :width .33 :height .5 :ttl nil :modeline nil :quit nil :slot 2)))
+
+  (add-hook 'org-roam-mode-hook #'turn-on-visual-line-mode)
+  (setq org-roam-capture-templates
+        '(("d" "default" plain
+           "%?"
+           :if-new (file+head "${slug}.org"
+                              "#+title: ${title}\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("r" "bibliography reference" plain "%?"
+           :if-new
+           (file+head "references/${citekey}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+           :if-new
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+           :unnarrowed t)))
+  (set-company-backend! 'org-mode '(company-capf))
+  (require 'org-roam-protocol))
+
+(use-package! org-roam-dailies
+  :init
+  (map! :leader
+        :prefix "n"
+        :desc "org-roam-dailies-capture-today" "j" #'org-roam-dailies-capture-today)
+  :config
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :if-new (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n")))))
+
+
+
+
+
+
+;;(setq org-roam-directory "~/org/RoamNotes")
+;;(setq org-roam-db-location (expand-file-name (concat "org-roam." hr/hostname ".db") org-roam-directory))
+
+;; (setq org-capture-templates
+;;       '(("d" "default" plain
+;;       "%?"
+;;       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+;;       :unnarrowed t))
+;;       '("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+;;        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+;;        :unnarrowed t)
+;;       )
+;; (
 (setq org-log-into-drawer t )
 
 (setq org-todo-keywords
