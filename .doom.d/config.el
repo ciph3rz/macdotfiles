@@ -74,11 +74,14 @@
         :desc "org-roam-node-find" "f" #'org-roam-node-find
         :desc "org-roam-ref-find" "r" #'org-roam-ref-find
         :desc "org-roam-show-graph" "g" #'org-roam-show-graph
-        :desc "org-roam-capture" "c" #'org-roam-capture)
+        :desc "org-roam-capture" "c" #'org-roam-capture
+        :desc "org-roam-node-insert-immediate" "I" #'org-roam-node-insert-immediate
+        :desc "my/org-roam-find-project" "p" #'org-roam-node-find-project
+        :desc "my/org-roam-capture-task" "t" #'my/org-roam-capture-task
+        :desc "my/org-roam-capture-inbox" "b" #'my/org-roam-capture-inbox)
   (setq org-roam-directory (file-truename "~/org/RoamNotes")
         org-roam-db-location (file-truename "~/code/Roam/org-roam.db")
         org-roam-db-gc-threshold most-positive-fixnum
-        org-roam-completion-everywhere t
         org-id-link-to-org-use-id t)
   :config
   (org-roam-setup)
@@ -92,26 +95,29 @@
   (setq org-roam-capture-templates
         '(("d" "default" plain
            "%?"
-           :if-new (file+head "${slug}.org"
-                              "#+title: ${title}\n")
+           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
            :immediate-finish t
            :unnarrowed t)
           ("r" "bibliography reference" plain "%?"
            :if-new
            (file+head "references/${citekey}.org" "#+title: ${title}\n")
            :unnarrowed t)
-          ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+          ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n* Resources\n\n"
            :if-new
-           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" " #+title: ${title}\n#+category: ${title}\n#+filetags: Project")
            :unnarrowed t)))
-  (set-company-backend! 'org-mode '(company-capf))
+
+
+ (set-company-backend! 'org-mode '(company-capf))
   (require 'org-roam-protocol))
 
 (use-package! org-roam-dailies
   :init
   (map! :leader
         :prefix "n"
-        :desc "org-roam-dailies-capture-today" "j" #'org-roam-dailies-capture-today)
+        :desc "org-roam-dailies-capture-today" "j" #'org-roam-dailies-capture-today
+        :desc "org-roam-dailies-capture-yesterday" "Y" #'org-roam-dailies-capture-yesterday
+        :desc "org-roam-dailies-capture-tomorrow" "T" #'org-roam-dailies-capture-tomorrow)
   :config
   (setq org-roam-dailies-directory "daily/")
   (setq org-roam-dailies-capture-templates
@@ -119,6 +125,158 @@
            "* %?"
            :if-new (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n")))))
+
+;; Custom ORG-ROAM Settings
+(defun org-roam-node-insert-immediate (arg &rest args)
+  (interactive "P")
+  (let ((args (push arg args))
+        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                  '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
+
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  (mapcar #'org-roam-node-file
+          (seq-filter
+           (my/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (my/org-roam-list-notes-by-tag "Project")))
+
+;; Build the agenda list the first time for the session
+(my/org-roam-refresh-agenda-list)
+
+(defun my/org-roam-project-finalize-hook ()
+  "Adds the captured project file to `org-agenda-files' if the
+capture was not aborted."
+  ;; Remove the hook since it was added temporarily
+  (remove-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+
+  ;; Add project file to the agenda list if the capture was confirmed
+  (unless org-note-abort
+    (with-current-buffer (org-capture-get :buffer)
+      (add-to-list 'org-agenda-files (buffer-file-name)))))
+
+(defun my/org-roam-find-project ()
+  (interactive)
+  ;; Add the project file to the agenda after capture is finished
+  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+
+  ;; Select a project file to open, creating it if necessary
+  (org-roam-node-find
+   nil
+   nil
+   (my/org-roam-filter-by-tag "Project")
+   :templates
+   '(("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n* Resources-Links\n\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: Project")
+      :unnarrowed t))))
+
+(defun my/org-roam-capture-inbox ()
+  (interactive)
+  (org-roam-capture- :node (org-roam-node-create)
+                     :templates '(("i" "inbox" plain "* %?"
+                                  :if-new (file+head "Inbox.org" "#+title: Inbox\n")))))
+
+(defun my/org-roam-capture-task ()
+  (interactive)
+  ;; Add the project file to the agenda after capture is finished
+  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+
+  ;; Capture the new task, creating the project file if necessary
+  (org-roam-capture- :node (org-roam-node-read
+                            nil
+                            (my/org-roam-filter-by-tag "Project"))
+                     :templates '(("p" "project" plain "** TODO %?"
+                                   :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                          "#+title: ${title}\n#+category: ${title}\n#+filetags: Project"
+                                                          ("Tasks"))))))
+
+(defun my/org-roam-copy-todo-to-today ()
+  (interactive)
+  (let ((org-refile-keep t) ;; Set this to nil to delete the original!
+        (org-roam-dailies-capture-templates
+          '(("t" "tasks" entry "%?"
+             :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+        (org-after-refile-insert-hook #'save-buffer)
+        today-file
+        pos)
+    (save-window-excursion
+      (org-roam-dailies--capture (current-time) t)
+      (setq today-file (buffer-file-name))
+      (setq pos (point)))
+
+    ;; Only refile if the target file is different than the current file
+    (unless (equal (file-truename today-file)
+                   (file-truename (buffer-file-name)))
+      (org-refile nil nil (list "Tasks" today-file nil pos)))))
+
+(add-to-list 'org-after-todo-state-change-hook
+             (lambda ()
+               (when (equal org-state "DONE")
+                 (my/org-roam-copy-todo-to-today))))
+
+;;THIS IS OLD
+;; (use-package! org-roam
+;;   :init
+;;   (setq org-roam-v2-ack t)
+;;   (map! :leader
+;;         :prefix "n"
+;;         :desc "org-roam" "l" #'org-roam-buffer-toggle
+;;         :desc "org-roam-node-insert" "i" #'org-roam-node-insert
+;;         :desc "org-roam-node-find" "f" #'org-roam-node-find
+;;         :desc "org-roam-ref-find" "r" #'org-roam-ref-find
+;;         :desc "org-roam-show-graph" "g" #'org-roam-show-graph
+;;         :desc "org-roam-capture" "c" #'org-roam-capture)
+;;   (setq org-roam-directory (file-truename "~/org/RoamNotes")
+;;         org-roam-db-location (file-truename "~/code/Roam/org-roam.db")
+;;         org-roam-db-gc-threshold most-positive-fixnum
+;;         org-roam-completion-everywhere t
+;;         org-id-link-to-org-use-id t)
+;;   :config
+;;   (org-roam-setup)
+;;   (set-popup-rules!
+;;     `((,(regexp-quote org-roam-buffer) ; persistent org-roam buffer
+;;        :side right :width .33 :height .5 :ttl nil :modeline nil :quit nil :slot 1)
+;;       ("^\\*org-roam: " ; node dedicated org-roam buffer
+;;        :side right :width .33 :height .5 :ttl nil :modeline nil :quit nil :slot 2)))
+
+;;   (add-hook 'org-roam-mode-hook #'turn-on-visual-line-mode)
+;;   (setq org-roam-capture-templates
+;;         '(("d" "default" plain
+;;            "%?"
+;;            :if-new (file+head "${slug}.org"
+;;                               "#+title: ${title}\n")
+;;            :immediate-finish t
+;;            :unnarrowed t)
+;;           ("r" "bibliography reference" plain "%?"
+;;            :if-new
+;;            (file+head "references/${citekey}.org" "#+title: ${title}\n")
+;;            :unnarrowed t)
+;;           ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+;;            :if-new
+;;            (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+;;            :unnarrowed t)))
+;;   (set-company-backend! 'org-mode '(company-capf))
+;;   (require 'org-roam-protocol))
+
+;; (use-package! org-roam-dailies
+;;   :init
+;;   (map! :leader
+;;         :prefix "n"
+;;         :desc "org-roam-dailies-capture-today" "j" #'org-roam-dailies-capture-today)
+;;   :config
+;;   (setq org-roam-dailies-directory "daily/")
+;;   (setq org-roam-dailies-capture-templates
+;;         '(("d" "default" entry
+;;            "* %?"
+;;            :if-new (file+head "%<%Y-%m-%d>.org"
+;;                               "#+title: %<%Y-%m-%d>\n")))))
 
 
 
