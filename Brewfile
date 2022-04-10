@@ -31,6 +31,7 @@ brew 'ripgrep'
 brew 'findutils'
 brew 'fd'
 brew 'youtube-dl'
+brew 'qrencode'
 
 # # Spatie Medialibrary
 # brew 'jpegoptim'
@@ -118,6 +119,9 @@ cask 'iterm2'
 cask 'evernote'
 cask 'vagrant'
 cask 'quicken'
+cask 'foobar2000'
+cask 'alfred'
+cask 'iina'
 
 # Fonts
 cask 'font-lato'
